@@ -1,0 +1,9 @@
+{
+  "name": "django-archery-store",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "python manage.py runserver"
+  }
+}

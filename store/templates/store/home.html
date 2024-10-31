@@ -1,0 +1,77 @@
+<content>{% extends 'store/base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="relative bg-gray-900">
+    <div class="absolute inset-0">
+        <img class="w-full h-full object-cover opacity-60" src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Archer aiming with bow">
+    </div>
+    <div class="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Premium Archery Equipment
+        </h1>
+        <p class="mt-6 text-xl text-gray-300 max-w-3xl">
+            Discover our collection of professional-grade bows, arrows, and accessories. 
+            Whether you're a beginner or a seasoned archer, we have everything you need to hit your target.
+        </p>
+        <div class="mt-10">
+            <a href="{% url 'product_list' %}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-600 hover:bg-emerald-700">
+                Shop Now
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Featured Products -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Featured Products</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for product in featured_products %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <img src="{{ product.image }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-900">{{ product.name }}</h3>
+                <p class="mt-1 text-sm text-gray-500">{{ product.description }}</p>
+                <div class="mt-4 flex items-center justify-between">
+                    <span class="text-lg font-bold text-emerald-600">${{ product.price }}</span>
+                    <form method="post" action="{% url 'add_to_cart' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors">
+                            Add to Cart
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Categories Section -->
+<div class="bg-gray-100 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-8">Shop by Category</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="{% url 'product_list' %}?category=bows" class="relative rounded-lg overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1557682250-33bd709cbe85?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Bows" class="w-full h-64 object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                    <h3 class="text-2xl font-bold text-white">Bows</h3>
+                </div>
+            </a>
+            <a href="{% url 'product_list' %}?category=arrows" class="relative rounded-lg overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1557682224-5b8590cd9ec5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Arrows" class="w-full h-64 object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                    <h3 class="text-2xl font-bold text-white">Arrows</h3>
+                </div>
+            </a>
+            <a href="{% url 'product_list' %}?category=accessories" class="relative rounded-lg overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1557682204-e53b55fd750c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Accessories" class="w-full h-64 object-cover">
+                <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                    <h3 class="text-2xl font-bold text-white">Accessories</h3>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}</content>
